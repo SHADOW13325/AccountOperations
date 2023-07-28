@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  server:
+    build: .
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: account
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin13325
+      MYSQL_ROOT_PASSWORD: admin13325
+    command: --init-file /src/main/resources/db/databasescript.sql
+    volumes:
+        - ./databasescript.sql:/src/main/resources/db/databasescript.sql
