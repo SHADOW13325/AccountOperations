@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "f100d783-d011-4b4f-bcfb-1bcdf5818a91",
+		"name": "Setu Account",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28775522"
+	},
+	"item": [
+		{
+			"name": "Create Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"saumitra\",\r\n    \"mobile\": \"8318774275\",\r\n    \"accountType\": 1\r\n}"
+				},
+				"url": "http://localhost:8081/setuinterview/account/v1/createaccount"
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit Money",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}"
+				},
+				"url": "http://localhost:8081/setuinterview/account/v1/transaction/deposit"
+			},
+			"response": []
+		},
+		{
+			"name": "Withdraw Money",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}"
+				},
+				"url": "http://localhost:8081/setuinterview/account/v1/transaction/withdraw"
+			},
+			"response": []
+		},
+		{
+			"name": "Account History",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/setuinterview/account/v1/transaction/history?accountNumber",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setuinterview",
+						"account",
+						"v1",
+						"transaction",
+						"history"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
