@@ -9,37 +9,71 @@
 
 ### ✨ [Demo](asd)
 
-## Project Setup
+# Project Setup
 
 Documentation Link -> https://docs.google.com/document/d/1EeO0RLbPuL4LGwjOOENKgPzMYOgfS2yrP0DbOzicXww/edit?usp=sharing
 
 API Collection Link -> https://api.postman.com/collections/28775522-f100d783-d011-4b4f-bcfb-1bcdf5818a91?access_key=PMAT-01H6C8KVZ2CH8F8QX13CNX81E3
 
-### TechStack
+## TechStack
 ```text
 1. Java 17
 2. SpringBoot 3.1.2
 3. MySQL 8
 4. Maven
+5. Docker 24.0.2
 ```
 
-<img src="templates/Configuration.png"/>
 
-### DB Configuration
+## Deployment Steps
 
-1. Install MySQL8 and create a database ***account*** or you can reconfigure by changing the property value.
-        ***spring.datasource.url=jdbc:mysql://localhost:3306/account***
-2. Reconfigure your username and password in the above file.
-3. Once you run the project the tables get automatically created. You can change the property ***spring.jpa.hibernate.ddl-auto*** from ***create*** to ***update*** if you don't want to drop your tables every time you restart the project.
+### Setup Files
 
+Application Properties File
 
+<img src="templates/ApplicationProperties.png"/>
 
 
-### Deployment Steps
-Run locally 
-1. After cloning the repo and installing the techstack you can directly go to ***AccountOperationsApplication*** Class and run it to start the application. The default server port is configured 8081 in ***application.properties*** file.
+Docker File
+
+<img src="templates/DockerFile.png"/>
 
 
+Docker Compose File -> server setup configurations
+
+<img src="templates/ServerSetupDockerComposeFile.png"/>
+
+
+Docker Compose File -> mysql setup configurations
+
+<img src="templates/MysqlSetupDockerComposeFile.png"/>
+
+
+### Running locally
+1. Install Java 17 and Mysql 8 and clone the repo. Create the database ***account*** manually
+2. Set these mysql properties in the application properties file ->
+```text
+server.port=8081
+-------------------------------------------------------------------------
+spring.datasource.url=jdbc:mysql://localhost:3306/account
+spring.datasource.username=<username>
+spring.datasource.password=<password>
+```
+3. Now go to ***AccountOperationsApplication*** Class and run it to start the application.
+
+### Deploying on docker
+1. Install maven and docker and docker-compose. Build the project by running this command
+```text
+mvn clean install -DskipTests
+```
+2. The jar file will be created at **./target/account-operations-jar.jar** .
+3. Change the password in Docker Compose File for mysql setup. It will run as root.
+4. Go to the root of this project and open terminal and type this command to run the application.
+```text
+docker-compose up
+```
+
+You can access the apis via postman on 8081 port.
 
 
 
