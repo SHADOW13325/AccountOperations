@@ -6,7 +6,14 @@ services:
     ports:
       - 8081:8081
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy  # Wait until the mysqldb service is healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://mysqldb:3306"]  # Check if mysqldb is accepting connections
+      interval: 10s  # Check every 10 seconds
+      timeout: 10s  # Timeout after 10 seconds
+      retries: 5  # Retry 5 times before considering the service unhealthy
+
   mysqldb:
     image: "mysql:8.0"
     restart: always
@@ -14,9 +21,15 @@ services:
       - 3307:3306
     environment:
       MYSQL_DATABASE: account
-      MYSQL_USER: root
-      MYSQL_PASSWORD: admin13325
-      MYSQL_ROOT_PASSWORD: admin13325
-    command: --init-file /src/main/resources/db/databasescript.sql
+      MYSQL_ROOT_PASSWORD: admin13325  # Set the root password here
     volumes:
-        - ./databasescript.sql:/src/main/resources/db/databasescript.sql
+      - ./src/main/resources/db/databasescript.sql:/docker-entrypoint-initdb.d/databasescript.sql  # Use the correct directory for initialization scripts
+      - mysql_data:/var/lib/mysql  # Mount the data volume for MySQL data
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]  # Check if MySQL is running
+      interval: 10s  # Check every 10 seconds
+      timeout: 5s  # Timeout after 5 seconds
+      retries: 3  # Retry 3 times before considering the service unhealthy
+
+volumes:
+  mysql_data:
